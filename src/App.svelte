@@ -1,11 +1,10 @@
 <script>
-	import Something from './Something.svelte'
+  import { lifecycle, delayRender } from './lifecylce.js';
 
-	let showSomething = false
+  let done = delayRender(); // 이 자체는 스토어 객체이다
+  lifecycle();
 </script>
 
-<button on:click={() => {showSomething = !showSomething}}>Toggle</button>
-
-{#if showSomething}
-	<Something />
+{#if $done}
+  <h1>Lifecycle</h1>
 {/if}

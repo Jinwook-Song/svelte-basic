@@ -1,5 +1,4 @@
 <script>
-
 	import Something from './Something.svelte'
 
 	let showSomething = false

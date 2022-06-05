@@ -1,5 +1,5 @@
 <script>
-  import Example from './conditional-pattern.svelte';
+  import Example from './each-key.svelte';
 </script>
 
 <Example />

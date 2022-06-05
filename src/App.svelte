@@ -1,5 +1,5 @@
 <script>
-  import Label from './label.svelte';
+  import ResponsivePattern from './responsive-pattern.svelte';
 </script>
 
-<Label />
+<ResponsivePattern />

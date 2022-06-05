@@ -1,7 +1,7 @@
-## Basic
-
 - lifecylcle
+
   - lifecycle.svelte
+
     ```jsx
     <script>
       import { afterUpdate, beforeUpdate, onDestroy, onMount } from "svelte";
@@ -41,8 +41,11 @@
 
     <h1 on:click="{addDot}">{name}</h1>
     ```
+
   - lifecycle.js
+
     - 라이프사이클 모듈화해서 사용
+
     ```jsx
     import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte';
     import { writable } from 'svelte/store';
@@ -76,7 +79,9 @@
       return render; // 값이 아닌 store 객체
     }
     ```
+
   - tick()
+
     ```jsx
     <script>
       import { tick } from 'svelte';
@@ -93,7 +98,9 @@
 
     <h1 on:click={handler}>hello {name}!</h1>
     ```
+
 - 보간법
+
   ```jsx
   <script>
     let href = 'https://github.com/Jinwook-Song/svelte-basic';
@@ -124,7 +131,9 @@
   {@debug index}
   <h1 on:click={() => (index += 1)}>Hello {name}</h1>
   ```
+
 - Assignment
+
   ```jsx
   <script>
     let name = 'Jinwook';
@@ -160,4 +169,108 @@
   <h3>{user.depth.a}</h3>
   <h3>{user.numbers}</h3>
   <h3>{numbers}</h3>
+  ```
+
+- 반응성 구문 ($:)
+
+  ```jsx
+  <script>
+    import { tick } from 'svelte';
+
+    let count = 0;
+    let double = 0;
+
+    // Label 구문을 통한 반응성 유도
+    // 내부에 반응성을 가지는 데이터가 존재하고 그 데이터가 갱신되어 실제로 화면이 바뀌는 반응성이 일어나면 반응성 구문 ($:)이 실행됨
+    $: {
+      double = count * 2;
+      console.log('double');
+    }
+
+    //   $: double = count * 2;
+
+    async function assign() {
+      count++;
+      console.time('timer');
+      await tick();
+      console.timeEnd('timer');
+      console.log(double);
+    }
+  </script>
+
+  <button on:click={assign}>Assign</button>
+
+  <h2>{count}</h2>
+  <h2>{double}</h2>
+  ```
+
+  - 반응성 구문 패턴
+
+  ```jsx
+  <script>
+    let count = 0;
+
+    // 선언
+    $: double = count * 2;
+
+    // 블록
+    $: {
+      console.log(count);
+      console.log(double);
+    }
+
+    // 함수 실행
+    $: count, log();
+
+    // 즉시 실행 함수 (IIFE)
+    $: count,
+      (() => {
+        console.log('iife: Jinwook');
+      })();
+
+    // 조건문(If)
+    $: if (count > 0) {
+      console.log('if:', double);
+    }
+
+    // 반복문(For)
+    $: for (let i = 0; i < 3; i++) {
+      count;
+      console.log('for:', i);
+    }
+
+    // 조건문(Switch)
+    $: switch (count) {
+      case 1:
+        console.log('switch:', count);
+        break;
+      default:
+        console.log('swith: default');
+    }
+
+    // 유효범위
+    $: {
+      function scope1() {
+        console.log('scope1');
+        function scope2() {
+          console.log('scope2');
+          function scope3() {
+            console.log('scope3', count);
+          }
+          scope3();
+        }
+        scope2();
+      }
+      scope1();
+    }
+
+    function log() {
+      console.log('log fn');
+    }
+    function assign() {
+      count++;
+    }
+  </script>
+
+  <button on:click="{assign}">Assign</button>
   ```

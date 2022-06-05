@@ -1,5 +1,5 @@
 <script>
-  import Example from './keyframes.svelte';
+  import Example from './element-binding.svelte';
 </script>
 
 <Example />

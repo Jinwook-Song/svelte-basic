@@ -261,7 +261,7 @@
 
   <button on:click={assign}>Assign</button>
   ```
-- CSS Binding
+- Class CSS Binding
   ```jsx
   <script>
     let active = false;
@@ -306,6 +306,86 @@
       width: 300px;
       border-radius: 50%;
       background-color: magenta;
+    }
+  </style>
+  ```
+  - Pattern
+  ```jsx
+  <script>
+    let active = true;
+    let valid = false;
+    let camelCase = true;
+
+    function multi() {
+      return 'active multiple-class';
+    }
+  </script>
+
+  <div class={active ? 'active' : ''}>3항 연산자 보간</div>
+
+  <div class:active={true}>Class 지시어 (Directive) 바인딩</div>
+
+  <div class:active>Class 지시어 바인딩 단축</div>
+
+  <div class:active class:valid class:camelCase class:camel-case={camelCase}>
+    다중 Class 지시어 바인딩
+  </div>
+
+  <div class={multi()} />
+  ```
+- Style 유효범위
+  ```jsx
+  <script>
+    import Fruits from './array-element-sample.svelte';
+  </script>
+
+  <h2>App svelte</h2>
+  <ul class="fruits">
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Cherry</li>
+  </ul>
+
+  <Fruits />
+
+  <style>
+    /* local */
+    .fruits {
+      background-color: burlywood;
+    }
+    /* global */
+    :global(.fruits) {
+      color: red;
+    }
+  </style>
+  ```
+  - keyframe
+  ```jsx
+  <div class="box" />
+
+  <style>
+    .box {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 200px;
+      aspect-ratio: 1;
+      background-color: tomato;
+      border-radius: 20px;
+      animation: zoom 1s ease-in-out infinite alternate;
+    }
+
+    /* -global-(animationName) */
+    @keyframes -global-zoom {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.5);
+      }
     }
   </style>
   ```

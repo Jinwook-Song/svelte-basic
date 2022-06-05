@@ -1,5 +1,5 @@
 <script>
-  import Example from './style-range.svelte';
+  import Example from './keyframes.svelte';
 </script>
 
 <Example />

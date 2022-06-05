@@ -1,5 +1,5 @@
 <script>
-  import CssBinding from './css-binding.svelte';
+  import CssBinding from './css-binding-pattern.svelte';
 </script>
 
 <CssBinding />

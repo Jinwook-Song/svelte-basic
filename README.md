@@ -509,3 +509,187 @@
     </div>
   </section>
   ```
+  - contenteditable
+  ```jsx
+  <script>
+    let innerHTML = '';
+    let textContent = 'Hello world';
+  </script>
+
+  <div contenteditable bind:innerHTML bind:textContent />
+
+  <div>{innerHTML}</div>
+  <div>{textContent}</div>
+  <div>{@html innerHTML}</div>
+
+  <style>
+    div {
+      border: 1px solid red;
+      margin-bottom: 10px;
+    }
+  </style>
+  ```
+- 조건, 반복 패턴
+  - 조건
+  ```jsx
+  <script>
+    let count = 0;
+  </script>
+
+  <button on:click={() => count++}>+</button>
+  <button on:click={() => count--}>-</button>
+
+  <h2>{count}</h2>
+
+  <section>
+    <h2>if</h2>
+    {#if count > 3}
+      <div>couont &gt; 3</div>
+    {/if}
+  </section>
+
+  <section>
+    <h2>if, else</h2>
+    {#if count > 3}
+      <div>couont &gt; 3</div>
+    {:else}
+      <div>couont &lt;= 3</div>
+    {/if}
+  </section>
+
+  <section>
+    <h2>if, else if</h2>
+    {#if count > 3}
+      <div>couont &gt; 3</div>
+    {:else if count === 3}
+      <div>couont = 3</div>
+    {:else}
+      <div>couont &lt; 3</div>
+    {/if}
+  </section>
+  ```
+  - 반복 블록(key 사용)
+  ```jsx
+  <script>
+    //   let fruits = ['Apple', 'Banana', 'Cherry', 'Orange'];
+    let fruits = [
+      { id: 1, name: 'Apple' },
+      { id: 2, name: 'Banana' },
+      { id: 3, name: 'Cherry' },
+      { id: 4, name: 'Orange' },
+    ];
+
+    function deleteFruits() {
+      fruits = fruits.slice(1);
+    }
+  </script>
+
+  <button on:click={deleteFruits}>Delete first</button>
+
+  <ul>
+    <!-- 고유한 키를 설정하여 변화하지 않은 요소는 re-rendering 방지 -->
+    <!-- 키는 문자 숫자가 권장되며 중복되면 안됨 -->
+    {#each fruits as { id, name } (id)}
+      <li>{name}</li>
+    {/each}
+  </ul>
+  ```
+  - 반복 블록 패턴
+  ```jsx
+  <script>
+    let fruits = [
+      { id: 1, name: 'Apple' },
+      { id: 2, name: 'Banana' },
+      { id: 3, name: 'Cherry' },
+      { id: 4, name: 'Apple' },
+      { id: 5, name: 'Orange' },
+    ];
+    let todos = [];
+    let fruits2D = [
+      [1, 'Apple'],
+      [2, 'Banana'],
+      [3, 'Cherry'],
+      [4, 'Apple'],
+      [5, 'Orange'],
+    ];
+    let user = {
+      name: 'jinwook',
+      age: 20,
+      email: 'jinwook@gmail.com',
+    };
+  </script>
+
+  <section>
+    <h2>기본</h2>
+    <ul>
+      {#each fruits as fruit}
+        <li>{fruit.name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>순서 (index)</h2>
+    <ul>
+      {#each fruits as fruit, idx}
+        <li>{idx}: {fruit.name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>아이템 고유화(key)</h2>
+    <ul>
+      {#each fruits as fruit, idx (fruit.id)}
+        <li>{idx}: {fruit.name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>빈 배열 처리(else)</h2>
+    <ul>
+      {#each todos as todo, idx (todo.id)}
+        <li>{idx}: {todo.name}</li>
+      {:else}
+        <div>아이템 X</div>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>구조 분해(destructuring)</h2>
+    <ul>
+      {#each fruits as { id, name } (id)}
+        <li>{name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>2차원 배열 구조 분해(destructuring)</h2>
+    <ul>
+      {#each fruits2D as [id, name] (id)}
+        <li>{name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>나머지 연산자(rest)</h2>
+    <ul>
+      {#each fruits as { id, ...rest } (id)}
+        <li>{rest.name}</li>
+      {/each}
+    </ul>
+  </section>
+
+  <section>
+    <h2>객체 데이터</h2>
+    <ul>
+      {#each Object.entries(user) as [key, value] (key)}
+        <li>{key}: {value}</li>
+      {/each}
+    </ul>
+  </section>
+  ```

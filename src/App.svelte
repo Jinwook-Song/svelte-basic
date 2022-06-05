@@ -1,5 +1,5 @@
 <script>
-  import Example from './each-key.svelte';
+  import Example from './each-pattern.svelte';
 </script>
 
 <Example />

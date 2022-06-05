@@ -1,5 +1,5 @@
 <script>
-  import Assignment from './assignment.svelte';
+  import Label from './label.svelte';
 </script>
 
-<Assignment />
+<Label />

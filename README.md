@@ -1,7 +1,7 @@
+## Basic
+
 - lifecylcle
-
   - lifecycle.svelte
-
     ```jsx
     <script>
       import { afterUpdate, beforeUpdate, onDestroy, onMount } from "svelte";
@@ -41,11 +41,8 @@
 
     <h1 on:click="{addDot}">{name}</h1>
     ```
-
   - lifecycle.js
-
     - 라이프사이클 모듈화해서 사용
-
     ```jsx
     import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte';
     import { writable } from 'svelte/store';
@@ -79,9 +76,7 @@
       return render; // 값이 아닌 store 객체
     }
     ```
-
   - tick()
-
     ```jsx
     <script>
       import { tick } from 'svelte';
@@ -98,9 +93,7 @@
 
     <h1 on:click={handler}>hello {name}!</h1>
     ```
-
 - 보간법
-
   ```jsx
   <script>
     let href = 'https://github.com/Jinwook-Song/svelte-basic';
@@ -131,9 +124,7 @@
   {@debug index}
   <h1 on:click={() => (index += 1)}>Hello {name}</h1>
   ```
-
 - Assignment
-
   ```jsx
   <script>
     let name = 'Jinwook';
@@ -170,9 +161,7 @@
   <h3>{user.numbers}</h3>
   <h3>{numbers}</h3>
   ```
-
 - 반응성 구문 ($:)
-
   ```jsx
   <script>
     import { tick } from 'svelte';
@@ -203,9 +192,7 @@
   <h2>{count}</h2>
   <h2>{double}</h2>
   ```
-
   - 반응성 구문 패턴
-
   ```jsx
   <script>
     let count = 0;
@@ -272,5 +259,53 @@
     }
   </script>
 
-  <button on:click="{assign}">Assign</button>
+  <button on:click={assign}>Assign</button>
+  ```
+- CSS Binding
+  ```jsx
+  <script>
+    let active = false;
+    let color = {
+      t: 'tomato',
+      w: '#FFF',
+    };
+    let letterSpacing = 'letter-spacing: 5px;';
+  </script>
+
+  <button on:click={() => (active = !active)}>Toggle</button>
+
+  <!-- <div class={active ? 'active' : ''}>Hello</div> -->
+
+  <!-- svelte class 지시어 -->
+  <div class:active>Hello</div>
+  <div class:hello={active}>Hello</div>
+
+  <h2 style="background-color: {color.t}; color: {color.w}; {letterSpacing}">
+    text
+  </h2>
+
+  <style>
+    div {
+      width: 200px;
+      aspect-ratio: 1;
+      background-color: tomato;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      transition: 0.5s;
+    }
+    .active {
+      width: 300px;
+      border-radius: 50%;
+      background-color: teal;
+    }
+    .hello {
+      width: 300px;
+      border-radius: 50%;
+      background-color: magenta;
+    }
+  </style>
   ```

@@ -1,5 +1,5 @@
 <script>
-  import ResponsivePattern from './responsive-pattern.svelte';
+  import CssBinding from './css-binding.svelte';
 </script>
 
-<ResponsivePattern />
+<CssBinding />

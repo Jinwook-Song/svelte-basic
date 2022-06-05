@@ -1,5 +1,5 @@
 <script>
-  import Example from './contenteditable.svelte';
+  import Example from './conditional-pattern.svelte';
 </script>
 
 <Example />

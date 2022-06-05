@@ -1,5 +1,5 @@
 <script>
-  import Example from './element-binding-pattern.svelte';
+  import Example from './contenteditable.svelte';
 </script>
 
 <Example />

